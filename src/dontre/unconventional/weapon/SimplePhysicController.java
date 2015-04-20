@@ -5,6 +5,7 @@ import java.util.List;
 public class SimplePhysicController {
 	Screen screen;
 	List<PhysicBody> physicBodies = new ArrayList<PhysicBody>();	
+	
 	public SimplePhysicController(Screen screen)
 	{
 		this.screen = screen;
@@ -42,8 +43,31 @@ public class SimplePhysicController {
 				if (y+physicBody.sprite.getHeight()>47){
 					physicBody.setAcceleration(0, 0);
 					physicBody.setVelocity(0, 0);
+					physicBody.sprite.isThrowed = false;
+				}
+			}
+			if (physicBody.sprite.isThrowed && (physicBody.sprite.getClass() == AnimatedSpriteWithHealth.class ||  physicBody.sprite.getClass() ==SpriteWithHealth.class))
+			{
+				for (Sprite spr:screen.sprites)
+				{
+					if (physicBody.sprite.isCollidesWithBox(spr) && !physicBody.sprite.equals(spr))
+						if (spr.getClass() == AnimatedSpriteWithHealth.class)
+							((AnimatedSpriteWithHealth)spr).makeDamage(1f);
+						else
+						if (spr.getClass() == SpriteWithHealth.class)
+							((SpriteWithHealth)spr).makeDamage(1f);
 				}
 			}
 		}
+	}
+	
+	public PhysicBody getBodyBySprite(Sprite spr)
+	{
+		for (PhysicBody body:this.physicBodies)
+		{
+			if (body.getSprite().equals(spr))
+				return body;
+		}
+		return null;
 	}
 }

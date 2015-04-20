@@ -5,6 +5,7 @@ public class Sprite extends Box{
 	SimpleBitmask simpleBitmask;
 	boolean isPickable=false;
 	boolean isPicked = false;
+	boolean isThrowed = false;
 	public Sprite(float x, float y, float width, float height, int[] pixels) {
 		super(x, y, width, height);
 		this.pixels = pixels;

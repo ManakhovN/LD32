@@ -44,12 +44,22 @@ public class Screen extends Box{
 	
 	public void clearDeadSprites(SimplePhysicController controller) {
 		for (int i=sprites.size()-1; i>=0; i--)
-			if (sprites.get(i).getClass() == SelfDestroyableSprite.class)
+			if (sprites.get(i).getClass() == SelfDestroyableSprite.class){
 				if (((SelfDestroyableSprite)sprites.get(i)).isDead())
 					{
 						controller.physicBodies.remove(sprites.get(i));
 						sprites.remove(i);						
 					}
+			} else
+			if (sprites.get(i).getClass() == SpriteWithHealth.class && ((SpriteWithHealth)sprites.get(i)).health<0f)
+			{
+				Atomizer.atomize(this, sprites.get(i), controller);
+			} else
+				if (sprites.get(i).getClass() == AnimatedSpriteWithHealth.class && ((AnimatedSpriteWithHealth)sprites.get(i)).health<0f)
+				{
+					Atomizer.atomize(this, sprites.get(i), controller);
+				}
+				
 	}
 
 	public void drawTile(int index) {
@@ -123,4 +133,6 @@ public class Screen extends Box{
 				break;
 		}
 	}
+	
+	
 }

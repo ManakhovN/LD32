@@ -18,6 +18,7 @@ public class ZombiesController {
 	}
 	public void addZombie(PhysicBody zombie)
 	{
+		zombie.getSprite().setPickable(true);
 		zombies.add(zombie);
 		
 	}
@@ -29,26 +30,25 @@ public class ZombiesController {
 		for (PhysicBody zombie:zombies)
 		{
 			float distance = spr.getDistance(zombie.getSprite());
-			if (distance>=spr.width && distance<= 100) {
+			if (distance>=spr.width && distance<= 100 && zombie.accelerationY==0f) {
 				 if (spr.x - zombie.sprite.x>0)
 					 {
-					 zombie.velocityX = r.nextFloat()*0.025f;
+					 zombie.velocityX = r.nextFloat()*0.05f;
 					 	((AnimatedSprite)zombie.sprite).setAnimationBounds(0, 3);
 					 }
 				 else 
 				 {
-					 zombie.velocityX = r.nextFloat()*-0.025f;
+					 zombie.velocityX = r.nextFloat()*-0.05f;
 					 ((AnimatedSprite)zombie.sprite).setAnimationBounds(4, 7);
 				 }
 				}
-			if (distance<spr.width){
+			if (distance<spr.width && !zombie.getSprite().isPicked && ((AnimatedSpriteWithHealth)zombie.getSprite()).health>0){
 				enemy.health-=0.01;
-//				System.out.println(enemy.health);
 				enemy.player.velocityX/=2f;
 			}
 		}
 		
-		for (PhysicBody zombie:zombies)
+/*		for (PhysicBody zombie:zombies)
 		{
 			float distance = spr.getDistance(zombie.getSprite());
 			if (distance<spr.width){
@@ -57,6 +57,6 @@ public class ZombiesController {
 				break;
 			}
 		}
-			
+	*/		
 	}
 }

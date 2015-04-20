@@ -45,7 +45,7 @@ public class AnimatedSprite extends Sprite{
 				this.currentFrame = this.animationStartFrame;
 			if (this.currentFrame>this.animationEndFrame)
 				this.currentFrame = this.animationStartFrame;
-			
+
 			this.pixels = texture.parts[this.currentFrame];
 		}		
 	}
