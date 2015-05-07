@@ -67,7 +67,7 @@ public class MainLoop extends Canvas implements Runnable{
 		gameState = 0;
 		Random r = new Random();
 		running = true;
-		enableEvents(AWTEvent.KEY_EVENT_MASK);
+		
 	//	Sprite sprite = new Sprite(10, 50, 8, 8, texture.parts[0]);
 	//	sprite.setSimpleBitmask(new SimpleBitmask(0x00FF00));
 	//	screen.addSprite(sprite);
@@ -222,6 +222,7 @@ public class MainLoop extends Canvas implements Runnable{
 		game.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		JFrame frame = new JFrame(MainLoop.NAME);
+		game.setFocusable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(game);
